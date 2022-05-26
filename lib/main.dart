@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ilook/page/DetailPlace.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,18 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        home: Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            title: Text('test'),
+        theme: ThemeData(
+          textTheme: GoogleFonts?.spaceGroteskTextTheme(
+            Theme.of(context).textTheme,
           ),
-          body: Center(
-            child: Text(
-              'test',
-              style: GoogleFonts.rubik(textStyle: TextStyle(fontSize: 100)),
-            ),
-          ),
-        ));
+        ),
+        home: DetailPlace());
   }
 }
