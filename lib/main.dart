@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ilook/page/DetailPlace.dart';
+import 'package:ilook/page/LoginPage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +19,6 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: DetailPlace());
+        home: LoginPage());
   }
 }
