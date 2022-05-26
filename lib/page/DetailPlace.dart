@@ -337,32 +337,46 @@ class DetailLocation extends StatelessWidget {
                       textStyle:
                           TextStyle(fontWeight: FontWeight.w800, fontSize: 22)),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.star_rounded, color: Colors.yellow[800]),
-                        Icon(Icons.star_rounded, color: Colors.yellow[800]),
-                        Icon(Icons.star_rounded, color: Colors.yellow[800]),
-                        Icon(Icons.star_rounded, color: Colors.yellow[800]),
-                        Icon(Icons.star_half_rounded,
-                            color: Colors.yellow[800]),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text('(4.5)')
-                      ],
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text('See reviews'),
-                      style: ButtonStyle(splashFactory: NoSplash.splashFactory),
-                    )
-                  ],
+                Container(
+                  margin: EdgeInsets.only(bottom: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(Icons.star_rounded, color: Colors.yellow[800]),
+                          Icon(Icons.star_rounded, color: Colors.yellow[800]),
+                          Icon(Icons.star_rounded, color: Colors.yellow[800]),
+                          Icon(Icons.star_rounded, color: Colors.yellow[800]),
+                          Icon(Icons.star_half_rounded,
+                              color: Colors.yellow[800]),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text('(4.5)')
+                        ],
+                      ),
+                      TextButton(
+                        onPressed: () => showDialog(
+                            context: context,
+                            builder: (builder) => AlertDialog(
+                                  title: Text(
+                                    'Nama tempat',
+                                    style: GoogleFonts.rubik(
+                                        textStyle: TextStyle(
+                                            fontWeight: FontWeight.w800,
+                                            fontSize: 20)),
+                                  ),
+                                )),
+                        child: Text('See ratings'),
+                        style:
+                            ButtonStyle(splashFactory: NoSplash.splashFactory),
+                      )
+                    ],
+                  ),
                 ),
                 Text(
-                  'Deskripsi',
+                  'Description',
                   style: GoogleFonts.rubik(
                       textStyle:
                           TextStyle(fontWeight: FontWeight.w800, fontSize: 18)),
@@ -404,7 +418,10 @@ class BottomBar extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Harga masuk'),
+                Text('Entrance fee'),
+                SizedBox(
+                  height: 5,
+                ),
                 Text(
                   'Rp. 0',
                   style: GoogleFonts.rubik(
