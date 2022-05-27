@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:ilook/page/RegisterPage.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -106,7 +107,12 @@ class LoginPage extends StatelessWidget {
                             style: TextStyle(
                                 color: Colors.grey[600], fontSize: 14)),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) {
+                              return RegisterPage();
+                            }));
+                          },
                           child: Text('Sign up now',
                               style: TextStyle(
                                   color: Colors.grey[800],

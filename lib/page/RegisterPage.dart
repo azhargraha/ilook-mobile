@@ -102,7 +102,7 @@ class RegisterPage extends StatelessWidget {
                         ),
                         onPressed: () {},
                         child: Text(
-                          'Register',
+                          'Sign in',
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
