@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ilook/util/places.dart';
+// import 'package:ilook/util/places.dart';
 //import 'package:icon_badge/icon_badge.dart';
 
 List places = [
@@ -79,18 +79,18 @@ List places = [
         "Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.",
   },
 ];
+
 class Explore extends StatelessWidget {
   const Explore({Key? key}) : super(key: key);
-  
+
   @override
-  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
           IconButton(
-            icon : IconBadge(
-              icon : Icons.notifications_none,
+            icon: IconBadge(
+              icon: Icons.notifications_none,
               size: 0.0,
             ),
             onPressed: () {},
@@ -147,9 +147,8 @@ class Explore extends StatelessWidget {
       ),
     );
   }
-
-
 }
+
 class HorizontalPlaceItem extends StatelessWidget {
   final Map place;
 
@@ -266,7 +265,6 @@ class _IconBadgeState extends State<IconBadge> {
   }
 }
 
-
 class SearchBar extends StatelessWidget {
   final TextEditingController _searchControl = new TextEditingController();
 
@@ -314,4 +312,3 @@ class SearchBar extends StatelessWidget {
     );
   }
 }
-
