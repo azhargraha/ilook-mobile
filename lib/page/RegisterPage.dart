@@ -118,7 +118,7 @@ import 'package:mobel/page/LoginPage.dart';
                             onTap: () {
                               Navigator.pushReplacement(context, 
                                 MaterialPageRoute(builder: (context) {
-                                  return RegisterPage();
+                                  return LoginPage();
                                 })
                               );
                             },
