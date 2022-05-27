@@ -115,7 +115,13 @@ import 'package:mobel/page/LoginPage.dart';
                               style: TextStyle(
                                   color: Colors.grey[600], fontSize: 14)),
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushReplacement(context, 
+                                MaterialPageRoute(builder: (context) {
+                                  return RegisterPage();
+                                })
+                              );
+                            },
                             child: Text('Sign in',
                                 style: TextStyle(
                                     color: Colors.grey[800],
