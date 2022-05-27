@@ -103,7 +103,7 @@ class RegisterPage extends StatelessWidget {
                         ),
                         onPressed: () {},
                         child: Text(
-                          'Sign in',
+                          'Register',
                           style: TextStyle(fontSize: 18),
                         ),
                       ),
@@ -121,7 +121,7 @@ class RegisterPage extends StatelessWidget {
                               return LoginPage();
                             }));
                           },
-                          child: Text('Register',
+                          child: Text('Sign in',
                               style: TextStyle(
                                   color: Colors.grey[800],
                                   fontSize: 14,
