@@ -56,6 +56,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     TextFieldContainer(
                       child: TextField(
+                        obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           icon: Icon(
