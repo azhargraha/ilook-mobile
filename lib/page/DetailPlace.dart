@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ilook/widget/RatingPopUp.dart';
 
 class DetailPlace extends StatelessWidget {
   const DetailPlace({Key? key}) : super(key: key);
@@ -359,15 +360,7 @@ class DetailLocation extends StatelessWidget {
                       TextButton(
                         onPressed: () => showDialog(
                             context: context,
-                            builder: (builder) => AlertDialog(
-                                  title: Text(
-                                    'Nama tempat',
-                                    style: GoogleFonts.rubik(
-                                        textStyle: TextStyle(
-                                            fontWeight: FontWeight.w800,
-                                            fontSize: 20)),
-                                  ),
-                                )),
+                            builder: (builder) => RatingPopUp()),
                         child: Text('See ratings'),
                         style:
                             ButtonStyle(splashFactory: NoSplash.splashFactory),
