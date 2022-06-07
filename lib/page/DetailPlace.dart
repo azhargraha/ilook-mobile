@@ -17,6 +17,8 @@ class DetailPlace extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             onPressed: () {},
             icon: CircleAvatar(
               backgroundColor: Colors.black38,
@@ -30,6 +32,8 @@ class DetailPlace extends StatelessWidget {
             CircleAvatar(
               backgroundColor: Colors.black38,
               child: IconButton(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 onPressed: () {},
                 icon: Icon(Icons.more_horiz, color: Colors.white),
               ),
@@ -53,202 +57,6 @@ class DetailPlace extends StatelessWidget {
                           fit: BoxFit.cover)),
                 ),
               ),
-              // DraggableScrollableSheet(
-              //     initialChildSize: 0.56,
-              //     minChildSize: 0.1,
-              //     maxChildSize: 0.9,
-              //     builder: (context, controller) {
-              //       return Container(
-              //         // margin: EdgeInsets.only(top: screen.height * 0.46),
-              //         child: Column(
-              //           children: [
-              //             Expanded(
-              //               child: Container(
-              //                 alignment: Alignment.topCenter,
-              //                 width: screen.width,
-              //                 decoration: BoxDecoration(
-              //                     borderRadius: BorderRadius.vertical(
-              //                         top: Radius.circular(30)),
-              //                     color: Colors.red[400]),
-              //                 child: Column(
-              //                   children: [
-              //                     Padding(
-              //                       padding: EdgeInsets.symmetric(
-              //                           horizontal: 30, vertical: 20),
-              //                       child: Row(
-              //                         mainAxisAlignment:
-              //                             MainAxisAlignment.spaceBetween,
-              //                         children: [
-              //                           Text('Nama kota'),
-              //                           Text('Detail lokasi'),
-              //                         ],
-              //                       ),
-              //                     ),
-              //                     Expanded(
-              //                       child: Container(
-              //                         width: screen.width,
-              //                         decoration: BoxDecoration(
-              //                             borderRadius: BorderRadius.vertical(
-              //                                 top: Radius.circular(30)),
-              //                             color: Colors.white),
-              //                         child: Column(
-              //                           children: [
-              //                             Container(
-              //                               width: screen.width,
-              //                               height: 30,
-              //                               alignment: Alignment.center,
-              //                               child: Container(
-              //                                 width: 50,
-              //                                 height: 5,
-              //                                 decoration: BoxDecoration(
-              //                                     borderRadius:
-              //                                         BorderRadius.circular(
-              //                                             100),
-              //                                     color: Colors.grey[300]),
-              //                               ),
-              //                             ),
-              //                             Expanded(
-              //                               child: Container(
-              //                                 padding: EdgeInsets.symmetric(
-              //                                     horizontal: 30),
-              //                                 width: screen.width,
-              //                                 child: SingleChildScrollView(
-              //                                   scrollDirection: Axis.vertical,
-              //                                   child: Column(
-              //                                     crossAxisAlignment:
-              //                                         CrossAxisAlignment.start,
-              //                                     children: [
-              //                                       Text('Nama Tempat'),
-              //                                       Row(
-              //                                         mainAxisAlignment:
-              //                                             MainAxisAlignment
-              //                                                 .spaceBetween,
-              //                                         children: [
-              //                                           Row(
-              //                                             children: [
-              //                                               Icon(
-              //                                                   Icons
-              //                                                       .star_rounded,
-              //                                                   color: Colors
-              //                                                           .yellow[
-              //                                                       800]),
-              //                                               Icon(
-              //                                                   Icons
-              //                                                       .star_rounded,
-              //                                                   color: Colors
-              //                                                           .yellow[
-              //                                                       800]),
-              //                                               Icon(
-              //                                                   Icons
-              //                                                       .star_rounded,
-              //                                                   color: Colors
-              //                                                           .yellow[
-              //                                                       800]),
-              //                                               Icon(
-              //                                                   Icons
-              //                                                       .star_rounded,
-              //                                                   color: Colors
-              //                                                           .yellow[
-              //                                                       800]),
-              //                                               Icon(
-              //                                                   Icons
-              //                                                       .star_half_rounded,
-              //                                                   color: Colors
-              //                                                           .yellow[
-              //                                                       800]),
-              //                                               Text('(4.5)')
-              //                                             ],
-              //                                           ),
-              //                                           TextButton(
-              //                                             onPressed: () {},
-              //                                             child: Text(
-              //                                                 'See reviews'),
-              //                                             style: ButtonStyle(
-              //                                                 splashFactory:
-              //                                                     NoSplash
-              //                                                         .splashFactory),
-              //                                           )
-              //                                         ],
-              //                                       ),
-              //                                       Text('Deskripsi'),
-              //                                       Text(
-              //                                           'Ipsum reprehenderit fugiat eiusmod esse laborum. Sint elit aute esse sint. Dolor Lorem excepteur occaecat exercitation ex reprehenderit. Excepteur nulla eiusmod incididunt duis sit ipsum. Consequat occaecat proident magna tempor laboris ad elit pariatur nulla consectetur consectetur ea velit commodo. Voluptate cupidatat culpa laboris duis non. Magna dolore dolor ut veniam reprehenderit ex anim.'),
-              //                                     ],
-              //                                   ),
-              //                                 ),
-              //                               ),
-              //                             ),
-              //                           ],
-              //                         ),
-              //                       ),
-              //                     ),
-              //                     Container(
-              //                       padding:
-              //                           EdgeInsets.symmetric(horizontal: 30),
-              //                       height: 80,
-              //                       decoration: BoxDecoration(
-              //                           color: Colors.white,
-              //                           border: Border(
-              //                               top: BorderSide(
-              //                                   color: Colors.grey[200]!))),
-              //                       child: Row(
-              //                         mainAxisAlignment:
-              //                             MainAxisAlignment.spaceBetween,
-              //                         children: [
-              //                           Column(
-              //                               crossAxisAlignment:
-              //                                   CrossAxisAlignment.start,
-              //                               mainAxisAlignment:
-              //                                   MainAxisAlignment.center,
-              //                               children: [
-              //                                 Text('Harga masuk'),
-              //                                 Text(
-              //                                   'Rp. 0',
-              //                                 )
-              //                               ]),
-              //                           TextButton(
-              //                             onPressed: () {},
-              //                             child: Row(
-              //                               children: [
-              //                                 Text('Add to plan'),
-              //                                 SizedBox(
-              //                                   width: 10,
-              //                                 ),
-              //                                 Icon(
-              //                                   Icons.arrow_forward_ios,
-              //                                   size: 15,
-              //                                 )
-              //                               ],
-              //                             ),
-              //                             style: ButtonStyle(
-              //                                 padding:
-              //                                     MaterialStateProperty.all(
-              //                                         EdgeInsets.symmetric(
-              //                                             horizontal: 20,
-              //                                             vertical: 15)),
-              //                                 shape: MaterialStateProperty.all(
-              //                                     RoundedRectangleBorder(
-              //                                         borderRadius:
-              //                                             BorderRadius.circular(
-              //                                                 10))),
-              //                                 backgroundColor:
-              //                                     MaterialStateProperty.all(
-              //                                         Colors.red[400]),
-              //                                 foregroundColor:
-              //                                     MaterialStateProperty.all(
-              //                                         Colors.white)),
-              //                           )
-              //                         ],
-              //                       ),
-              //                     )
-              //                   ],
-              //                 ),
-              //               ),
-              //             ),
-              //           ],
-              //         ),
-              //       );
-              //     }),
               DraggableScrollableSheet(
                   initialChildSize: 0.56,
                   minChildSize: 0.56,
