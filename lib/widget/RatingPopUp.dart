@@ -22,7 +22,7 @@ class _RatingPopUpState extends State<RatingPopUp> {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.65,
+        height: MediaQuery.of(context).size.height * 0.63,
         padding: EdgeInsets.all(20),
         child: Column(children: [
           Align(
