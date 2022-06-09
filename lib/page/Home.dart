@@ -224,6 +224,7 @@ class HorizontalPlaceItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 20.0),
       child: InkWell(
+        onTap: () => Navigator.pushNamed(context, '/detail-place'),
         child: Container(
           height: 250.0,
           width: 140.0,
