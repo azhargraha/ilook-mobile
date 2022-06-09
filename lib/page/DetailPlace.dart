@@ -19,7 +19,7 @@ class DetailPlace extends StatelessWidget {
           leading: IconButton(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
-            onPressed: () {},
+            onPressed: () => Navigator.pop(context),
             icon: CircleAvatar(
               backgroundColor: Colors.black38,
               child: Icon(
