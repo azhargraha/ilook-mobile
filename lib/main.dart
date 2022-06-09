@@ -44,8 +44,8 @@ class _PageNavigatorState extends State<PageNavigator> {
 
   static const List<Widget> _pageOptions = [
     Home(),
-    // Explore(),
-    // Planner(),
+    Center(child: Text('Explore')),
+    Center(child: Text('Planner')),
     PackagePage(),
   ];
 
