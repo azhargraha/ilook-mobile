@@ -6,7 +6,7 @@ List places = [
   {
     "name": "Hotel Dolah Amet & Suites",
     "img": "assets/1.jpeg",
-    "price": r"$100/night",
+    "price": "100/night",
     "location": "London, England",
     "details": "Pellentesque in ipsum id orci porta dapibus. "
         "Nulla porttitor accumsan tincidunt. Donec rutrum "
@@ -21,7 +21,7 @@ List places = [
   {
     "name": "Beach Mauris Blandit",
     "img": "assets/2.jpeg",
-    "price": r"$100/night",
+    "price": "100/night",
     "location": "Lisbon, Portugal",
     "details": "Pellentesque in ipsum id orci porta dapibus. "
         "Nulla porttitor accumsan tincidunt. Donec rutrum "
@@ -36,7 +36,7 @@ List places = [
   {
     "name": "Ipsum Restaurant",
     "img": "assets/3.jpeg",
-    "price": r"$100/night",
+    "price": "100/night",
     "location": "Paris, France",
     "details": "Pellentesque in ipsum id orci porta dapibus. "
         "Nulla porttitor accumsan tincidunt. Donec rutrum "
@@ -51,7 +51,7 @@ List places = [
   {
     "name": "Curabitur Beach",
     "img": "assets/4.jpeg",
-    "price": r"$100/night",
+    "price": "100/night",
     "location": "Rome, Italy",
     "details": "Pellentesque in ipsum id orci porta dapibus. "
         "Nulla porttitor accumsan tincidunt. Donec rutrum "
@@ -66,7 +66,7 @@ List places = [
   {
     "name": "Tincidunt Pool",
     "img": "assets/5.jpeg",
-    "price": r"$100/night",
+    "price": "100/night",
     "location": "Madrid, Spain",
     "details": "Pellentesque in ipsum id orci porta dapibus. "
         "Nulla porttitor accumsan tincidunt. Donec rutrum "
@@ -88,6 +88,21 @@ List<String> city = [
   'Yogyakarta',
   'Bali'
 ];
+
+class Pariwisata {
+  final String name;
+  final String img;
+  final String price;
+  final String location;
+  final String details;
+
+  const Pariwisata(
+      {required this.name,
+      required this.img,
+      required this.price,
+      required this.location,
+      required this.details});
+}
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -224,7 +239,13 @@ class HorizontalPlaceItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 20.0),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, '/detail-place'),
+        onTap: () => Navigator.pushNamed(context, '/detail-place',
+            arguments: Pariwisata(
+                name: place['name'],
+                img: place['img'],
+                price: place['price'],
+                location: place['location'],
+                details: place['details'])),
         child: Container(
           height: 250.0,
           width: 140.0,
