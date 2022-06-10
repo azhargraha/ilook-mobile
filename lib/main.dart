@@ -5,7 +5,7 @@ import 'package:ilook/page/Home.dart';
 import 'package:ilook/page/LoginPage.dart';
 import 'package:ilook/page/RegisterPage.dart';
 import 'package:ilook/page/PackagePage.dart';
-import 'package:ilook/page/RegisterPage.dart';
+import 'package:ilook/page/DetailPackage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts?.spaceGroteskTextTheme(
           Theme.of(context).textTheme,
         ),
-
+      ),
       routes: {
         '/detail-package': (context) => DetailPackage(),
         '/login': (context) => LoginPage(),
