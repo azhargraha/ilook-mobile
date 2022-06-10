@@ -1,11 +1,42 @@
-// import 'dart:html';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ilook/main.dart';
+import 'package:ilook/page/Home.dart';
 import 'package:ilook/page/RegisterPage.dart';
+import 'package:ilook/services/authServices.dart';
+import 'package:http/http.dart' as http;
+import 'package:ilook/services/globals.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({ Key? key }) : super(key: key);
 
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  String _username = '';
+  String _password = '';
+
+  loginPressed() async {
+    if (_username.isNotEmpty && _password.isNotEmpty) {
+      http.Response response = await AuthServices.login(_username, _password);
+      Map responseMap = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => const PageNavigator(),
+            ));
+      } else {
+        errorSnackBar(context, responseMap['message']);
+      }
+    } else {
+      errorSnackBar(context, 'enter all required fields');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
@@ -27,7 +58,7 @@ class LoginPage extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                       width: screen.width * 0.8,
-                      child: Image.asset('assets/images/logo.png'),
+                      child: SvgPicture.asset('assets/logo.svg'),
                     ),
                     Container(
                       margin: EdgeInsets.only(bottom: 15),
@@ -46,6 +77,9 @@ class LoginPage extends StatelessWidget {
                     ),
                     TextFieldContainer(
                       child: TextField(
+                        onChanged: (value) {
+                          _username = value;
+                        },
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -57,6 +91,9 @@ class LoginPage extends StatelessWidget {
                     ),
                     TextFieldContainer(
                       child: TextField(
+                        onChanged: (value){
+                          _password = value;
+                        },
                         obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -94,7 +131,7 @@ class LoginPage extends StatelessWidget {
                             foregroundColor:
                                 MaterialStateProperty.all(Colors.white),
                           ),
-                          onPressed: () {},
+                          onPressed: () => loginPressed(),
                           child: Text(
                             'Sign in',
                             style: TextStyle(fontSize: 18),
@@ -108,10 +145,7 @@ class LoginPage extends StatelessWidget {
                                 color: Colors.grey[600], fontSize: 14)),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) {
-                              return RegisterPage();
-                            }));
+                            Navigator.pushNamed(context, '/register');
                           },
                           child: Text('Sign up now',
                               style: TextStyle(
@@ -131,6 +165,7 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
 
 class TextFieldContainer extends StatelessWidget {
   final Widget? child;

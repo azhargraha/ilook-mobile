@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ilook/page/DetailPlace.dart';
 import 'package:ilook/page/Home.dart';
 import 'package:ilook/page/LoginPage.dart';
+import 'package:ilook/page/RegisterPage.dart';
 import 'package:ilook/page/PackagePage.dart';
 import 'package:ilook/page/RegisterPage.dart';
 
@@ -21,13 +22,14 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts?.spaceGroteskTextTheme(
           Theme.of(context).textTheme,
         ),
-      ),
+
       routes: {
+        '/detail-package': (context) => DetailPackage(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/detail-place': (context) => DetailPlace(),
       },
-      home: PageNavigator(),
+      home: LoginPage(),
     );
   }
 }
