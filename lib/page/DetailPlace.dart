@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ilook/page/Home.dart';
 import 'package:ilook/widget/RatingPopUp.dart';
 
 class DetailPlace extends StatelessWidget {
@@ -8,6 +9,7 @@ class DetailPlace extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final place = ModalRoute.of(context)!.settings.arguments as Pariwisata;
     Size screen = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -19,7 +21,7 @@ class DetailPlace extends StatelessWidget {
           leading: IconButton(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
-            onPressed: () {},
+            onPressed: () => Navigator.pop(context),
             icon: CircleAvatar(
               backgroundColor: Colors.black38,
               child: Icon(
@@ -52,9 +54,7 @@ class DetailPlace extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.amber,
                       image: DecorationImage(
-                          image: NetworkImage(
-                              'https://i.pinimg.com/736x/16/07/8d/16078d3aabc508ee84bf147d16e4d8a6.jpg'),
-                          fit: BoxFit.cover)),
+                          image: AssetImage(place.img), fit: BoxFit.cover)),
                 ),
               ),
               DraggableScrollableSheet(
@@ -72,10 +72,20 @@ class DetailPlace extends StatelessWidget {
                       child: ListView(
                           padding: EdgeInsets.zero,
                           controller: scrollController,
-                          children: [LocationBar(), DetailLocation()]),
+                          children: [
+                            LocationBar(kota: place.location),
+                            DetailLocation(
+                              name: place.name,
+                              details: place.details,
+                            )
+                          ]),
                     );
                   }),
-              Positioned(bottom: 0, child: BottomBar())
+              Positioned(
+                  bottom: 0,
+                  child: BottomBar(
+                    price: place.price,
+                  ))
             ],
           ),
         ),
@@ -85,7 +95,8 @@ class DetailPlace extends StatelessWidget {
 }
 
 class LocationBar extends StatelessWidget {
-  const LocationBar({Key? key}) : super(key: key);
+  final String kota;
+  const LocationBar({Key? key, required this.kota}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +106,7 @@ class LocationBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Nama kota',
+            kota,
             style: GoogleFonts.rubik(
                 textStyle: TextStyle(
                     fontWeight: FontWeight.w600,
@@ -113,7 +124,10 @@ class LocationBar extends StatelessWidget {
 }
 
 class DetailLocation extends StatelessWidget {
-  const DetailLocation({Key? key}) : super(key: key);
+  final String name;
+  final String details;
+  const DetailLocation({Key? key, required this.name, required this.details})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +155,7 @@ class DetailLocation extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Nama Tempat',
+                  name,
                   style: GoogleFonts.rubik(
                       textStyle:
                           TextStyle(fontWeight: FontWeight.w800, fontSize: 22)),
@@ -187,8 +201,7 @@ class DetailLocation extends StatelessWidget {
                   padding: EdgeInsets.only(top: 10),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
-                    child: Text(
-                        'Ipsum reprehenderit fugiat eiusmod esse laborum. Sint elit aute esse sint. Dolor Lorem excepteur occaecat exercitation ex reprehenderit. Excepteur nulla eiusmod incididunt duis sit ipsum. Consequat occaecat proident magna tempor laboris ad elit pariatur nulla consectetur consectetur ea velit commodo. Voluptate cupidatat culpa laboris duis non. Magna dolore dolor ut veniam reprehenderit ex anim. Ipsum reprehenderit fugiat eiusmod esse laborum. Sint elit aute esse sint. Dolor Lorem excepteur occaecat exercitation ex reprehenderit. Excepteur nulla eiusmod incididunt duis sit ipsum. Consequat occaecat proident magna tempor laboris ad elit pariatur nulla consectetur consectetur ea velit commodo. Voluptate cupidatat culpa laboris duis non. Ipsum reprehenderit fugiat eiusmod esse laborum. Sint elit aute esse sint. Dolor Lorem excepteur occaecat exercitation ex reprehenderit. Excepteur nulla eiusmod incididunt duis sit ipsum. Consequat occaecat proident magna tempor laboris ad elit pariatur nulla consectetur consectetur ea velit commodo. Voluptate cupidatat culpa laboris duis non. Magna dolore dolor ut veniam reprehenderit ex anim. Ipsum reprehenderit fugiat eiusmod esse laborum. Sint elit aute esse sint. Dolor Lorem excepteur occaecat exercitation ex reprehenderit. Excepteur nulla eiusmod incididunt duis sit ipsum. Consequat occaecat proident magna tempor laboris ad elit pariatur nulla consectetur consectetur ea velit commodo. Voluptate cupidatat culpa laboris duis non.'),
+                    child: Text(details),
                   ),
                 ),
               ],
@@ -201,7 +214,8 @@ class DetailLocation extends StatelessWidget {
 }
 
 class BottomBar extends StatelessWidget {
-  const BottomBar({Key? key}) : super(key: key);
+  final String price;
+  const BottomBar({Key? key, required this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +238,7 @@ class BottomBar extends StatelessWidget {
                   height: 5,
                 ),
                 Text(
-                  'Rp. 0',
+                  'Rp. ${price}',
                   style: GoogleFonts.rubik(
                       textStyle:
                           TextStyle(fontWeight: FontWeight.w800, fontSize: 22)),
