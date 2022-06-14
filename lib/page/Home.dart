@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:ilook/util/places.dart';
-//import 'package:icon_badge/icon_badge.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:ilook/util/places.dart';
 
 List places = [
   {
@@ -89,6 +89,34 @@ List<String> city = [
   'Bali'
 ];
 
+List<Map<String, String>> cities = [
+  {
+    'nama':'Jakarta',
+    'imgUrl':'https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/revisi-2020/destinations-thumbnail/Jakarta_thumbnail.jpg'
+  },
+  {
+    'nama':'Bandung',
+    'imgUrl':'https://cdn-2.tstatic.net/tribunnews/foto/bank/images/indonesiatravel-gedung-sate-salah-satu-ikon-kota-bandung.jpg'
+  },
+  {
+    'nama':'Surabaya',
+    'imgUrl':'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg'
+  },
+  {
+    'nama':'Solo',
+    'imgUrl':'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg'
+  },
+  {
+    'nama':'Yogyakarta',
+    'imgUrl':'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg'
+  },
+  {
+    'nama':'Bali',
+    'imgUrl':'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg'
+  },
+  
+];
+
 class Pariwisata {
   final String name;
   final String img;
@@ -113,7 +141,8 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         centerTitle: true,
-        title: Image.asset('assets/images/logo.png'),
+        title: SvgPicture. asset('assets/logo.svg',
+          height: AppBar().preferredSize.height * 0.7),
         leading: InkWell(
           onTap: () {},
           child: Icon(
@@ -178,16 +207,29 @@ class Home extends StatelessWidget {
           Column(
             children: <Widget>[
               Container(
-                height: 100.0,
+                height: 150,
                 child: ListView.builder(
                   physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 15,
-                  itemBuilder: (BuildContext context, int index) => Card(
-                    child: Center(
-                        child: Image.network(
-                            'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg')),
+                  itemCount: cities.length,
+                  itemBuilder: (BuildContext context, int index) => Container(
+                    margin: EdgeInsets.only(left: 20),
+                    width: 120,
+                    height: 200,
+                    // color: Colors.amber,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          
+                          height: 130,
+                          child: Image.network(
+                              cities[index]['imgUrl']!,fit: BoxFit.cover,),
+                        ),
+                        Text(cities[index]['nama']!),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -295,58 +337,7 @@ class HorizontalPlaceItem extends StatelessWidget {
   }
 }
 
-// class CircleImages extends StatefulWidget{
-//   @override
-//   State<StatefulWidget> createState() {
-//     return CircleWidgets();
-//   }
-// }
 
-// class CircleWidgets extends State<CircleImages>{
-//   @override
-//     Widget build(BuildContext context) {
-//       List<Widget> widgets = [];
-//       for(var x = 0 ; x < 10 ; x++){
-//         widgets.add(Container(
-//                   height: 60.0,
-//                   width: 60.0,
-//                   margin: EdgeInsets.all(
-//                     6.0
-//                   ),
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(100.0),
-//                     boxShadow:[
-//                       new BoxShadow(
-//                         color: Color.fromARGB(100, 0, 0, 0),
-//                         blurRadius: 5.0,
-//                         offset: Offset(5.0, 5.0)
-//                       )
-//                     ],
-//                     border: Border.all(
-//                       width: 2.0,
-//                       style:BorderStyle.solid ,
-//                       color: Color.fromARGB(255, 0 , 0, 0)
-//                     ),
-//                     image: DecorationImage(
-//                       fit: BoxFit.cover,
-//                       image: NetworkImage('https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg')
-//                     )
-//                   )
-//                 )
-//             );
-//       }
-//       return Container(
-//         height: 80.0,
-
-//         child: ListView(
-//           scrollDirection: Axis.horizontal,
-//           padding: EdgeInsets.all(5.0),
-//           children: widgets
-//         )
-//       );
-
-//     }
-// }
 
 class SearchBar extends StatelessWidget {
   final TextEditingController _searchControl = new TextEditingController();
