@@ -100,7 +100,7 @@ List<Map<String, String>> cities = [
   },
   {
     'nama':'Surabaya',
-    'imgUrl':'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg'
+    'imgUrl':'https://www.researchgate.net/publication/336314939/figure/fig3/AS:811418450399261@1570468642516/Sura-shark-and-baya-crocodile-as-the-icon-of-Surabaya-Source-allindonesiantourismcom_Q640.jpg'
   },
   {
     'nama':'Solo',
