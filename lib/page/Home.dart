@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-//import 'package:ilook/util/places.dart';
+import 'package:ilook/widget/searchBar.dart';
 
 List places = [
   {
@@ -100,19 +100,19 @@ List<Map<String, String>> cities = [
   },
   {
     'nama':'Surabaya',
-    'imgUrl':'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg'
+    'imgUrl':'https://www.researchgate.net/publication/336314939/figure/fig3/AS:811418450399261@1570468642516/Sura-shark-and-baya-crocodile-as-the-icon-of-Surabaya-Source-allindonesiantourismcom_Q640.jpg'
   },
   {
     'nama':'Solo',
-    'imgUrl':'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg'
+    'imgUrl':'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Keraton_Surakarta.jpg/250px-Keraton_Surakarta.jpg'
   },
   {
     'nama':'Yogyakarta',
-    'imgUrl':'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg'
+    'imgUrl':'https://media-cdn.tripadvisor.com/media/photo-s/0d/4c/5e/fa/photo0jpg.jpg'
   },
   {
     'nama':'Bali',
-    'imgUrl':'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg'
+    'imgUrl':'https://i.insider.com/6172f7164f281c001296a571?width=1136&format=jpeg'
   },
   
 ];
@@ -339,50 +339,50 @@ class HorizontalPlaceItem extends StatelessWidget {
 
 
 
-class SearchBar extends StatelessWidget {
-  final TextEditingController _searchControl = new TextEditingController();
+// class SearchBar extends StatelessWidget {
+//   final TextEditingController _searchControl = new TextEditingController();
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.blueGrey[50],
-        borderRadius: BorderRadius.all(
-          Radius.circular(5.0),
-        ),
-      ),
-      child: TextField(
-        style: TextStyle(
-          fontSize: 15.0,
-          color: Colors.blueGrey[300],
-        ),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(10.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.0),
-            borderSide: BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
-            ),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          hintText: "Contoh : Bandung, Indonesia",
-          prefixIcon: Icon(
-            Icons.location_on,
-            color: Colors.blueGrey[300],
-          ),
-          hintStyle: TextStyle(
-            fontSize: 15.0,
-            color: Colors.blueGrey[300],
-          ),
-        ),
-        maxLines: 1,
-        controller: _searchControl,
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       decoration: BoxDecoration(
+//         color: Colors.blueGrey[50],
+//         borderRadius: BorderRadius.all(
+//           Radius.circular(5.0),
+//         ),
+//       ),
+//       child: TextField(
+//         style: TextStyle(
+//           fontSize: 15.0,
+//           color: Colors.blueGrey[300],
+//         ),
+//         decoration: InputDecoration(
+//           contentPadding: EdgeInsets.all(10.0),
+//           border: OutlineInputBorder(
+//             borderRadius: BorderRadius.circular(5.0),
+//             borderSide: BorderSide(
+//               color: Colors.white,
+//             ),
+//           ),
+//           enabledBorder: OutlineInputBorder(
+//             borderSide: BorderSide(
+//               color: Colors.white,
+//             ),
+//             borderRadius: BorderRadius.circular(5.0),
+//           ),
+//           hintText: "Contoh : Bandung, Indonesia",
+//           prefixIcon: Icon(
+//             Icons.location_on,
+//             color: Colors.blueGrey[300],
+//           ),
+//           hintStyle: TextStyle(
+//             fontSize: 15.0,
+//             color: Colors.blueGrey[300],
+//           ),
+//         ),
+//         maxLines: 1,
+//         controller: _searchControl,
+//       ),
+//     );
+//   }
+// }
