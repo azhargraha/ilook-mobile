@@ -80,14 +80,6 @@ List places = [
   },
 ];
 
-List<String> city = [
-  'Jakarta',
-  'Bandung',
-  'Surabaya',
-  'Solo',
-  'Yogyakarta',
-  'Bali'
-];
 
 List<Map<String, String>> cities = [
   {
@@ -139,31 +131,12 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: SvgPicture. asset('assets/logo.svg',
+          title: SvgPicture.asset('assets/logo.svg',
           height: AppBar().preferredSize.height * 0.7),
-        leading: InkWell(
-          onTap: () {},
-          child: Icon(
-            Icons.subject,
-            color: Colors.black,
-          ),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
         ),
-        actions: [
-          InkWell(
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.notifications,
-                size: 20,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ],
-      ),
       body: ListView(
         children: <Widget>[
           Padding(
@@ -177,29 +150,27 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: SearchBar(),
-          ),
+          
           Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
               "Popular places",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 20.0,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
           buildHorizontalList(context),
+
           Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
               "Explore City",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 20.0,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -221,11 +192,14 @@ class Home extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
+                        ClipRRect(
                           
-                          height: 130,
+                          borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                              cities[index]['imgUrl']!,fit: BoxFit.cover,),
+                              cities[index]['imgUrl']!,
+                              height: 130.0,
+                              width: 130.0,
+                              fit: BoxFit.cover,),
                         ),
                         Text(cities[index]['nama']!),
                       ],
@@ -336,53 +310,3 @@ class HorizontalPlaceItem extends StatelessWidget {
     );
   }
 }
-
-
-
-// class SearchBar extends StatelessWidget {
-//   final TextEditingController _searchControl = new TextEditingController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       decoration: BoxDecoration(
-//         color: Colors.blueGrey[50],
-//         borderRadius: BorderRadius.all(
-//           Radius.circular(5.0),
-//         ),
-//       ),
-//       child: TextField(
-//         style: TextStyle(
-//           fontSize: 15.0,
-//           color: Colors.blueGrey[300],
-//         ),
-//         decoration: InputDecoration(
-//           contentPadding: EdgeInsets.all(10.0),
-//           border: OutlineInputBorder(
-//             borderRadius: BorderRadius.circular(5.0),
-//             borderSide: BorderSide(
-//               color: Colors.white,
-//             ),
-//           ),
-//           enabledBorder: OutlineInputBorder(
-//             borderSide: BorderSide(
-//               color: Colors.white,
-//             ),
-//             borderRadius: BorderRadius.circular(5.0),
-//           ),
-//           hintText: "Contoh : Bandung, Indonesia",
-//           prefixIcon: Icon(
-//             Icons.location_on,
-//             color: Colors.blueGrey[300],
-//           ),
-//           hintStyle: TextStyle(
-//             fontSize: 15.0,
-//             color: Colors.blueGrey[300],
-//           ),
-//         ),
-//         maxLines: 1,
-//         controller: _searchControl,
-//       ),
-//     );
-//   }
-// }
