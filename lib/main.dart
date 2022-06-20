@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ilook/page/DetailPlace.dart';
 import 'package:ilook/page/Home.dart';
+import 'package:ilook/page/Explore.dart';
 import 'package:ilook/page/LoginPage.dart';
-import 'package:ilook/page/PackagePage.dart';
 import 'package:ilook/page/RegisterPage.dart';
+import 'package:ilook/page/PackagePage.dart';
+import 'package:ilook/page/DetailPackage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,11 +25,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       routes: {
+        '/detail-package': (context) => DetailPackage(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/detail-place': (context) => DetailPlace(),
       },
-      home: PageNavigator(),
+      home: LoginPage(),
     );
   }
 }
@@ -44,7 +47,7 @@ class _PageNavigatorState extends State<PageNavigator> {
 
   static const List<Widget> _pageOptions = [
     Home(),
-    Center(child: Text('Explore')),
+    Explore(),
     Center(child: Text('Planner')),
     PackagePage(),
   ];

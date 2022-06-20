@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:ilook/util/places.dart';
-//import 'package:icon_badge/icon_badge.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ilook/widget/searchBar.dart';
 
 List places = [
   {
@@ -80,13 +80,33 @@ List places = [
   },
 ];
 
-List<String> city = [
-  'Jakarta',
-  'Bandung',
-  'Surabaya',
-  'Solo',
-  'Yogyakarta',
-  'Bali'
+
+List<Map<String, String>> cities = [
+  {
+    'nama':'Jakarta',
+    'imgUrl':'https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/revisi-2020/destinations-thumbnail/Jakarta_thumbnail.jpg'
+  },
+  {
+    'nama':'Bandung',
+    'imgUrl':'https://cdn-2.tstatic.net/tribunnews/foto/bank/images/indonesiatravel-gedung-sate-salah-satu-ikon-kota-bandung.jpg'
+  },
+  {
+    'nama':'Surabaya',
+    'imgUrl':'https://www.researchgate.net/publication/336314939/figure/fig3/AS:811418450399261@1570468642516/Sura-shark-and-baya-crocodile-as-the-icon-of-Surabaya-Source-allindonesiantourismcom_Q640.jpg'
+  },
+  {
+    'nama':'Solo',
+    'imgUrl':'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Keraton_Surakarta.jpg/250px-Keraton_Surakarta.jpg'
+  },
+  {
+    'nama':'Yogyakarta',
+    'imgUrl':'https://media-cdn.tripadvisor.com/media/photo-s/0d/4c/5e/fa/photo0jpg.jpg'
+  },
+  {
+    'nama':'Bali',
+    'imgUrl':'https://i.insider.com/6172f7164f281c001296a571?width=1136&format=jpeg'
+  },
+  
 ];
 
 class Pariwisata {
@@ -111,30 +131,12 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Image.asset('assets/images/logo.png'),
-        leading: InkWell(
-          onTap: () {},
-          child: Icon(
-            Icons.subject,
-            color: Colors.black,
-          ),
+          title: SvgPicture.asset('assets/logo.svg',
+          height: AppBar().preferredSize.height * 0.7),
+          centerTitle: true,
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black,
         ),
-        actions: [
-          InkWell(
-            onTap: () {},
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.notifications,
-                size: 20,
-                color: Colors.black,
-              ),
-            ),
-          ),
-        ],
-      ),
       body: ListView(
         children: <Widget>[
           Padding(
@@ -148,29 +150,27 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: SearchBar(),
-          ),
+          
           Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
               "Popular places",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 20.0,
                 fontWeight: FontWeight.w600,
               ),
             ),
           ),
           buildHorizontalList(context),
+
           Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
               "Explore City",
               textAlign: TextAlign.left,
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 20.0,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -178,16 +178,32 @@ class Home extends StatelessWidget {
           Column(
             children: <Widget>[
               Container(
-                height: 100.0,
+                height: 150,
                 child: ListView.builder(
                   physics: ClampingScrollPhysics(),
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  itemCount: 15,
-                  itemBuilder: (BuildContext context, int index) => Card(
-                    child: Center(
-                        child: Image.network(
-                            'https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg')),
+                  itemCount: cities.length,
+                  itemBuilder: (BuildContext context, int index) => Container(
+                    margin: EdgeInsets.only(left: 20),
+                    width: 120,
+                    height: 200,
+                    // color: Colors.amber,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(
+                              cities[index]['imgUrl']!,
+                              height: 130.0,
+                              width: 130.0,
+                              fit: BoxFit.cover,),
+                        ),
+                        Text(cities[index]['nama']!),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -290,107 +306,6 @@ class HorizontalPlaceItem extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-// class CircleImages extends StatefulWidget{
-//   @override
-//   State<StatefulWidget> createState() {
-//     return CircleWidgets();
-//   }
-// }
-
-// class CircleWidgets extends State<CircleImages>{
-//   @override
-//     Widget build(BuildContext context) {
-//       List<Widget> widgets = [];
-//       for(var x = 0 ; x < 10 ; x++){
-//         widgets.add(Container(
-//                   height: 60.0,
-//                   width: 60.0,
-//                   margin: EdgeInsets.all(
-//                     6.0
-//                   ),
-//                   decoration: BoxDecoration(
-//                     borderRadius: BorderRadius.circular(100.0),
-//                     boxShadow:[
-//                       new BoxShadow(
-//                         color: Color.fromARGB(100, 0, 0, 0),
-//                         blurRadius: 5.0,
-//                         offset: Offset(5.0, 5.0)
-//                       )
-//                     ],
-//                     border: Border.all(
-//                       width: 2.0,
-//                       style:BorderStyle.solid ,
-//                       color: Color.fromARGB(255, 0 , 0, 0)
-//                     ),
-//                     image: DecorationImage(
-//                       fit: BoxFit.cover,
-//                       image: NetworkImage('https://pbs.twimg.com/profile_images/1262792807137153024/WKcQEgIZ_400x400.jpg')
-//                     )
-//                   )
-//                 )
-//             );
-//       }
-//       return Container(
-//         height: 80.0,
-
-//         child: ListView(
-//           scrollDirection: Axis.horizontal,
-//           padding: EdgeInsets.all(5.0),
-//           children: widgets
-//         )
-//       );
-
-//     }
-// }
-
-class SearchBar extends StatelessWidget {
-  final TextEditingController _searchControl = new TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.blueGrey[50],
-        borderRadius: BorderRadius.all(
-          Radius.circular(5.0),
-        ),
-      ),
-      child: TextField(
-        style: TextStyle(
-          fontSize: 15.0,
-          color: Colors.blueGrey[300],
-        ),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(10.0),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.0),
-            borderSide: BorderSide(
-              color: Colors.white,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-              color: Colors.white,
-            ),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          hintText: "Contoh : Bandung, Indonesia",
-          prefixIcon: Icon(
-            Icons.location_on,
-            color: Colors.blueGrey[300],
-          ),
-          hintStyle: TextStyle(
-            fontSize: 15.0,
-            color: Colors.blueGrey[300],
-          ),
-        ),
-        maxLines: 1,
-        controller: _searchControl,
       ),
     );
   }

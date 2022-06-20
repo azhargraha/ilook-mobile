@@ -1,8 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:ilook/page/Home.dart';
 import 'package:ilook/page/LoginPage.dart';
+import 'package:ilook/services/authServices.dart';
+import 'package:ilook/services/globals.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({Key? key}) : super(key: key);
+class TextFieldContainer extends StatelessWidget {
+  final Widget? child;
+  const TextFieldContainer({Key? key, this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      width: size.width * 0.8,
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.grey),
+          borderRadius: BorderRadius.circular(5)),
+      child: child,
+    );
+  }
+}
+
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({ Key? key }) : super(key: key);
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  var usernameController = TextEditingController();
+  var passwordController = TextEditingController();
+  var nameController = TextEditingController();
+  var phoneNumberController = TextEditingController();
+
+  Future<void> createAccountPressed() async {
+    if (usernameController.text.isNotEmpty && passwordController.text.isNotEmpty && nameController.text.isNotEmpty && phoneNumberController.text.isNotEmpty){
+      http.Response response =
+        await AuthServices.register(nameController.text, usernameController.text, passwordController.text, phoneNumberController.text);
+      Map responseMap = jsonDecode(response.body);
+      if (response.statusCode == 200) {
+        Navigator.pushNamed(
+            context,
+            '/login');
+      } else {
+        errorSnackBar(context, responseMap['message']);
+      }
+    }else {
+      errorSnackBar(context, 'Some fields are missing');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +95,7 @@ class RegisterPage extends StatelessWidget {
                     ),
                     TextFieldContainer(
                       child: TextField(
+                        controller: nameController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: Icon(
@@ -55,6 +107,7 @@ class RegisterPage extends StatelessWidget {
                     ),
                     TextFieldContainer(
                       child: TextField(
+                        controller: usernameController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           icon: Icon(
@@ -67,6 +120,7 @@ class RegisterPage extends StatelessWidget {
                     ),
                     TextFieldContainer(
                       child: TextField(
+                        controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -80,6 +134,7 @@ class RegisterPage extends StatelessWidget {
                     ),
                     TextFieldContainer(
                       child: TextField(
+                        controller: phoneNumberController,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           icon: Icon(
@@ -101,7 +156,7 @@ class RegisterPage extends StatelessWidget {
                           foregroundColor:
                               MaterialStateProperty.all(Colors.white),
                         ),
-                        onPressed: () {},
+                        onPressed: () => createAccountPressed(),
                         child: Text(
                           'Register',
                           style: TextStyle(fontSize: 18),
@@ -136,25 +191,6 @@ class RegisterPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class TextFieldContainer extends StatelessWidget {
-  final Widget? child;
-  const TextFieldContainer({Key? key, this.child}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      width: size.width * 0.8,
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey),
-          borderRadius: BorderRadius.circular(5)),
-      child: child,
     );
   }
 }
