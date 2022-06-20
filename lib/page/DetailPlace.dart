@@ -114,7 +114,7 @@ class LocationBar extends StatelessWidget {
                     color: Colors.white)),
           ),
           Text(
-            'Detail lokasi',
+            'Kategori tempat',
             style: TextStyle(color: Colors.white),
           ),
         ],
