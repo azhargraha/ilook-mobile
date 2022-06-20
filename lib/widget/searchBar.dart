@@ -31,7 +31,7 @@ class SearchBar extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(5.0),
           ),
-          hintText: "Contoh : Bandung, Indonesia",
+          hintText: "Search destination",
           prefixIcon: Icon(
             Icons.location_on,
             color: Colors.blueGrey[300],
