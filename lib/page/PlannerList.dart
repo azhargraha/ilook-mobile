@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:ilook/widget/packageCard.dart';
+import 'package:ilook/models/Planner.dart';
 import 'package:ilook/models/Package.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
+import 'package:ilook/widget/plannerCard.dart';
 
-class PackagePage extends StatefulWidget {
-  const PackagePage({Key? key}) : super(key: key);
+class PlannerPage extends StatefulWidget {
+  const PlannerPage({Key? key}) : super(key: key);
 
   @override
-  State<PackagePage> createState() => _PackagePageState();
+  State<PlannerPage> createState() => _PlannerPageState();
 }
 
-class _PackagePageState extends State<PackagePage> {
+class _PlannerPageState extends State<PlannerPage> {
+  Future<List<Planner>> fetchPlanner(http.Client client) async {
+  final response = await client.get(Uri.parse('http://10.0.2.2:8000/api/planner'));
+  List<dynamic> data = jsonDecode(response.body)['planner'];
+  List<Planner> list = [];
+  if (response.body != null) {
+    list = data.map((item) => Planner.fromJson(item)).toList();
+  }
+  print(list);
+  return list;
+}
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,17 +35,18 @@ class _PackagePageState extends State<PackagePage> {
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
         ),
-        body:
-            // FutureBuilder<List<Package>>(
-            //   future: fetchPackage(http.Client()),
-            //   builder: (context, snapshot) {
-            //     if (snapshot.hasData){
-            //       return PackageList(packages: snapshot.data!);
-            //     }else {
-            //       return Center(child: CircularProgressIndicator());
-            //     }
-            //   })
-            PackageList(),
+        body:FutureBuilder<List<Planner>>(
+              future: fetchPlanner(http.Client()),
+              builder: (context, snapshot) {
+                if (snapshot.hasData){
+                  return PlannerList(planners: snapshot.data!);
+                }else if (snapshot.hasError){
+                  return Text('$snapshot.error');
+                }else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              }
+            )
       ),
     );
   }
@@ -48,16 +62,14 @@ class _PackagePageState extends State<PackagePage> {
 //   return parsed.map<Package>((json)=> Package.fromJson(json)).toList();
 // }
 
-class PackageList extends StatelessWidget {
-  // final List<Package> packages;
-  const PackageList({Key? key}) : super(key: key);
+class PlannerList extends StatelessWidget {
+  final List<Planner> planners;
+  const PlannerList({Key? key, required this.planners}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final List<Map> myProducts = List.generate(
-        100000, (index) => {"id": index, "name": "Product $index"}).toList();
     return ListView.builder(
-        itemCount: myProducts.length,
+        itemCount: planners.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => Navigator.pushNamed(context, '/PlacePlannerList',
@@ -66,11 +78,7 @@ class PackageList extends StatelessWidget {
                     description: 'Deskripsi Paket $index',
                     thumbnailUrl:
                         'https://www.planetware.com/photos-large/INA/indonesia-beaches-of-bali.jpg')),
-            child: PackageCard(
-                title: 'Judul $index',
-                description: 'Ini deskripsi yang panjang buat $index',
-                thumbnailUrl:
-                    'https://www.planetware.com/photos-large/INA/indonesia-beaches-of-bali.jpg'),
+            child: PlannerCard(planner: planners[index]),
           );
         });
   }

@@ -20,3 +20,4 @@ class Package {
       thumbnailUrl: json['thumbnailUrl']
     );
   }
+}

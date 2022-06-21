@@ -40,6 +40,7 @@ class _ExploreState extends State<Explore> {
           centerTitle: true,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
+          automaticallyImplyLeading: false,
         ),
         body: ListView(
         children: <Widget>[

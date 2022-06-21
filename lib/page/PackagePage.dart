@@ -61,18 +61,15 @@ class PackageList extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final List<Map> myProducts =
-      List.generate(100000, (index) => {"id": index, "name": "Product $index"})
-          .toList();
     return ListView.builder(
       itemCount: packages.length,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () => Navigator.pushNamed(context, '/detail-package',
             arguments: Package(
-                title: 'Paket $index',
-                description: 'Deskripsi Paket $index',
-                thumbnailUrl: 'https://www.planetware.com/photos-large/INA/indonesia-beaches-of-bali.jpg')),
+                title: packages[index].title,
+                description: packages[index].description,
+                thumbnailUrl: packages[index].thumbnailUrl)),
           child: PackageCard(paket: packages[index]),
         );
       });

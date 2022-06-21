@@ -135,6 +135,7 @@ class Home extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
+          automaticallyImplyLeading: false,
         ),
       body: ListView(
         children: <Widget>[

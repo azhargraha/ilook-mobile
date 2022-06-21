@@ -4,6 +4,7 @@ import 'package:ilook/page/DetailPlace.dart';
 import 'package:ilook/page/Home.dart';
 import 'package:ilook/page/Explore.dart';
 import 'package:ilook/page/LoginPage.dart';
+import 'package:ilook/page/PlannerList.dart';
 import 'package:ilook/page/RegisterPage.dart';
 import 'package:ilook/page/PackagePage.dart';
 import 'package:ilook/page/DetailPackage.dart';
@@ -48,7 +49,7 @@ class _PageNavigatorState extends State<PageNavigator> {
   static const List<Widget> _pageOptions = [
     Home(),
     Explore(),
-    Center(child: Text('Planner')),
+    PlannerPage(),
     PackagePage(),
   ];
 

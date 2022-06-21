@@ -56,7 +56,6 @@ class SearchBar extends StatelessWidget {
         ),
         maxLines: 1,
         controller: _searchControl,
-        onChanged: fetchPariwisata(http.Client(), _searchControl.text),
       ),
     );
   }
