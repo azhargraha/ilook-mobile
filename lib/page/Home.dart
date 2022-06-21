@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ilook/widget/searchBar.dart';
+import 'package:ilook/models/Pariwisata.dart';
+import 'package:http/http.dart' as http;
 
 List places = [
   {
@@ -109,24 +113,19 @@ List<Map<String, String>> cities = [
   
 ];
 
-class Pariwisata {
-  final String name;
-  final String img;
-  final String price;
-  final String location;
-  final String details;
 
-  const Pariwisata(
-      {required this.name,
-      required this.img,
-      required this.price,
-      required this.location,
-      required this.details});
-}
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
-
+  Future<List<Pariwisata>> fetchPariwisata(http.Client client) async {
+    final response = await client.get(Uri.parse('http://10.0.2.2:8000/api/pariwisata'));
+    List<dynamic> data = jsonDecode(response.body)['pariwisata'];
+    List<Pariwisata> list = [];
+    if (response.body != null) {
+      list = data.map((item) => Pariwisata.fromJson(item)).toList();
+    }
+    return list;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -162,8 +161,18 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          buildHorizontalList(context),
-
+          FutureBuilder<List<Pariwisata>>(
+              future: fetchPariwisata(http.Client()),
+              builder: (context, snapshot) {
+                if (snapshot.hasData){
+                  return buildHorizontalList(context, snapshot.data!);
+                }else if (snapshot.hasError){
+                  return Text('$snapshot.error');
+                }else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              }
+            ),
           Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
@@ -227,7 +236,7 @@ class Home extends StatelessWidget {
     );
   }
 
-  buildHorizontalList(BuildContext context) {
+  buildHorizontalList(BuildContext context, List<Pariwisata> pariwisata) {
     return Container(
       padding: EdgeInsets.only(top: 10.0, left: 20.0),
       height: 250.0,
@@ -235,10 +244,9 @@ class Home extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         primary: false,
-        itemCount: places == null ? 0 : places.length,
+        itemCount: pariwisata.length,
         itemBuilder: (BuildContext context, int index) {
-          Map place = places.reversed.toList()[index];
-          return HorizontalPlaceItem(place: place);
+          return HorizontalPlaceItem(pariwisata: pariwisata[index]);
         },
       ),
     );
@@ -246,9 +254,9 @@ class Home extends StatelessWidget {
 }
 
 class HorizontalPlaceItem extends StatelessWidget {
-  final Map place;
+  final Pariwisata pariwisata;
 
-  HorizontalPlaceItem({required this.place});
+  HorizontalPlaceItem({required this.pariwisata});
 
   @override
   Widget build(BuildContext context) {
@@ -257,11 +265,14 @@ class HorizontalPlaceItem extends StatelessWidget {
       child: InkWell(
         onTap: () => Navigator.pushNamed(context, '/detail-place',
             arguments: Pariwisata(
-                name: place['name'],
-                img: place['img'],
-                price: place['price'],
-                location: place['location'],
-                details: place['details'])),
+                wisataID: pariwisata.wisataID,
+                nama: pariwisata.nama,
+                deskripsi: pariwisata.deskripsi,
+                lokasi: pariwisata.lokasi,
+                harga: pariwisata.harga,
+                // rating: pariwisata[index].rating,
+                kategoriID: pariwisata.kategoriID,
+                urlGambar: pariwisata.urlGambar)),
         child: Container(
           height: 250.0,
           width: 140.0,
@@ -269,8 +280,8 @@ class HorizontalPlaceItem extends StatelessWidget {
             children: <Widget>[
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  "${place["img"]}",
+                child: Image.network(
+                  'http://10.0.2.2:8000/storage/'+ pariwisata.urlGambar,
                   height: 178.0,
                   width: 140.0,
                   fit: BoxFit.cover,
@@ -280,7 +291,7 @@ class HorizontalPlaceItem extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "${place["name"]}",
+                  pariwisata.nama,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15.0,
@@ -293,7 +304,7 @@ class HorizontalPlaceItem extends StatelessWidget {
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "${place["location"]}",
+                  pariwisata.lokasi,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13.0,

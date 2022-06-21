@@ -15,9 +15,9 @@ class Package {
       required this.thumbnailUrl});
   factory Package.fromJson(Map <String, dynamic> json){
     return Package(
-      title: json['title'] as String,
-      description: json['description'] as String,
-      thumbnailUrl: json['thumbnailUrl'] as String
+      title: json['nama'],
+      description: json['deskripsi'],
+      thumbnailUrl: json['thumbnailUrl']
     );
   }
 }

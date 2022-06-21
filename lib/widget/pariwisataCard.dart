@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ilook/models/Package.dart';
+import 'package:ilook/models/Pariwisata.dart';
 
-class PackageCard extends StatelessWidget {
-  final Package paket;
-  const PackageCard({
-    required this.paket
+class PariwisataCard extends StatelessWidget {
+  final Pariwisata pariwisata;
+  const PariwisataCard({
+    required this.pariwisata
   });
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class PackageCard extends StatelessWidget {
             Colors.black.withOpacity(0.6),
             BlendMode.multiply,
           ),
-          image: NetworkImage(paket.thumbnailUrl),
+          image: NetworkImage('http://10.0.2.2:8000/storage/'+ pariwisata.urlGambar),
           fit: BoxFit.cover,
         ),
       ),
@@ -41,7 +41,7 @@ class PackageCard extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 5.0, vertical: 25),
               child: Text(
-                paket.title,
+                pariwisata.nama,
                 style: TextStyle(
                   fontSize: 19,
                   color: Colors.white
@@ -53,24 +53,31 @@ class PackageCard extends StatelessWidget {
             ),
             alignment: Alignment.topCenter,
           ),
-          Align(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(
-                paket.description,
-                style: TextStyle(
-                  fontSize: 19,
-                  color:  Colors.white
-                ),
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            alignment: Alignment.center,
-          ),
+          // Align(
+          //   child: Container(
+          //         padding: EdgeInsets.all(5),
+          //         margin: EdgeInsets.all(10),
+          //         decoration: BoxDecoration(
+          //           color: Colors.black.withOpacity(0.4),
+          //           borderRadius: BorderRadius.circular(15),
+          //         ),
+          //         child: Row(
+          //           children: [
+          //             Icon(
+          //               Icons.star,
+          //               color: Colors.yellow,
+          //               size: 18,
+          //             ),
+          //             SizedBox(width: 7),
+          //             Text('$pariwisata.rating'),
+          //           ],
+          //         ),
+          //       ),
+          // ),
         ],
       ),
     );
   }
 }
+
+

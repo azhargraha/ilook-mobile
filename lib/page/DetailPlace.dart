@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ilook/page/Home.dart';
 import 'package:ilook/widget/RatingPopUp.dart';
+import 'package:ilook/models/Pariwisata.dart';
 
 class DetailPlace extends StatelessWidget {
   const DetailPlace({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class DetailPlace extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.amber,
                       image: DecorationImage(
-                          image: AssetImage(place.img), fit: BoxFit.cover)),
+                          image: NetworkImage('http://10.0.2.2:8000/storage/'+ place.urlGambar), fit: BoxFit.cover)),
                 ),
               ),
               DraggableScrollableSheet(
@@ -73,10 +74,10 @@ class DetailPlace extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           controller: scrollController,
                           children: [
-                            LocationBar(kota: place.location),
+                            LocationBar(kota: place.lokasi),
                             DetailLocation(
-                              name: place.name,
-                              details: place.details,
+                              name: place.nama,
+                              details: place.deskripsi,
                             )
                           ]),
                     );
@@ -84,7 +85,7 @@ class DetailPlace extends StatelessWidget {
               Positioned(
                   bottom: 0,
                   child: BottomBar(
-                    price: place.price,
+                    price: place.harga,
                   ))
             ],
           ),
@@ -214,7 +215,7 @@ class DetailLocation extends StatelessWidget {
 }
 
 class BottomBar extends StatelessWidget {
-  final String price;
+  final int price;
   const BottomBar({Key? key, required this.price}) : super(key: key);
 
   @override
