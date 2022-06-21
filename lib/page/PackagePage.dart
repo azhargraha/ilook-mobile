@@ -26,37 +26,38 @@ class _PackagePageState extends State<PackagePage> {
           centerTitle: true,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
+          automaticallyImplyLeading: false,
         ),
         body: 
-        // FutureBuilder<List<Package>>(
-        //   future: fetchPackage(http.Client()),
-        //   builder: (context, snapshot) {
-        //     if (snapshot.hasData){
-        //       return PackageList(packages: snapshot.data!);
-        //     }else {
-        //       return Center(child: CircularProgressIndicator());
-        //     }
-        //   })
-        PackageList(),
+        FutureBuilder<List<Package>>(
+          future: fetchPackage(http.Client()),
+          builder: (context, snapshot) {
+            if (snapshot.hasData){
+              return PackageList(packages: snapshot.data!);
+            }else {
+              return Center(child: CircularProgressIndicator());
+            }
+          })
+        // PackageList(),
       ),
     );
   }
 }
 
-// Future<List<Package>> fetchPackage(http.Client client) async {
-//   final response = await client.get(Uri.parse('http://10.0.2.2:8000/api/package'));
-//   return compute(parsePackage, response.body);
-// }
+Future<List<Package>> fetchPackage(http.Client client) async {
+  final response = await client.get(Uri.parse('http://10.0.2.2:8000/api/paket'));
+  return compute(parsePackage, response.body);
+}
 
-// List<Package> parsePackage(String responseBody) {
-//   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-//   return parsed.map<Package>((json)=> Package.fromJson(json)).toList();
-// }
+List<Package> parsePackage(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Package>((json)=> Package.fromJson(json)).toList();
+}
 
 
 class PackageList extends StatelessWidget {
-  // final List<Package> packages;
-  const PackageList({ Key? key}) : super(key: key);
+  final List<Package> packages;
+  const PackageList({ Key? key, required this.packages}) : super(key: key);
   
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class PackageList extends StatelessWidget {
       List.generate(100000, (index) => {"id": index, "name": "Product $index"})
           .toList();
     return ListView.builder(
-      itemCount: myProducts.length,
+      itemCount: packages.length,
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () => Navigator.pushNamed(context, '/detail-package',
@@ -72,7 +73,7 @@ class PackageList extends StatelessWidget {
                 title: 'Paket $index',
                 description: 'Deskripsi Paket $index',
                 thumbnailUrl: 'https://www.planetware.com/photos-large/INA/indonesia-beaches-of-bali.jpg')),
-          child: PackageCard(title: 'Judul $index', description: 'Ini deskripsi yang panjang buat $index', thumbnailUrl: 'https://www.planetware.com/photos-large/INA/indonesia-beaches-of-bali.jpg'),
+          child: PackageCard(paket: packages[index]),
         );
       });
   }

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,8 @@ class Package {
       required this.thumbnailUrl});
   factory Package.fromJson(Map <String, dynamic> json){
     return Package(
-      title: json['title'] as String,
-      description: json['description'] as String,
-      thumbnailUrl: json['thumbnailUrl'] as String
+      title: json['nama'],
+      description: json['deskripsi'],
+      thumbnailUrl: json['thumbnailUrl']
     );
   }
-}

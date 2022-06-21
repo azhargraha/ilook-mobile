@@ -9,6 +9,15 @@ import 'package:ilook/services/authServices.dart';
 import 'package:http/http.dart' as http;
 import 'package:ilook/services/globals.dart';
 
+final List<Map<String, dynamic>> stringList = [
+  {
+    "title": "Judul 1",
+    "time":"09:00 am",
+    "slot":"09:00 - 10:00 am"
+    
+    }
+];
+
 class LoginPage extends StatefulWidget {
   const LoginPage({ Key? key }) : super(key: key);
 
