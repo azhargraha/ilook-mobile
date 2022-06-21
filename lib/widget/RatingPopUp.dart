@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:ilook/services/ratingService.dart';
 
 class RatingPopUp extends StatefulWidget {
   const RatingPopUp({Key? key}) : super(key: key);
@@ -9,6 +11,7 @@ class RatingPopUp extends StatefulWidget {
 }
 
 class _RatingPopUpState extends State<RatingPopUp> {
+  late Future<Rating> rating;
   int newRating = 0;
 
   void setNewRatingTo(int value) {
