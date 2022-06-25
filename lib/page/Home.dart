@@ -84,41 +84,44 @@ List places = [
   },
 ];
 
-
 List<Map<String, String>> cities = [
   {
-    'nama':'Jakarta',
-    'imgUrl':'https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/revisi-2020/destinations-thumbnail/Jakarta_thumbnail.jpg'
+    'nama': 'Jakarta',
+    'imgUrl':
+        'https://www.indonesia.travel/content/dam/indtravelrevamp/en/destinations/revisi-2020/destinations-thumbnail/Jakarta_thumbnail.jpg'
   },
   {
-    'nama':'Bandung',
-    'imgUrl':'https://cdn-2.tstatic.net/tribunnews/foto/bank/images/indonesiatravel-gedung-sate-salah-satu-ikon-kota-bandung.jpg'
+    'nama': 'Bandung',
+    'imgUrl':
+        'https://cdn-2.tstatic.net/tribunnews/foto/bank/images/indonesiatravel-gedung-sate-salah-satu-ikon-kota-bandung.jpg'
   },
   {
-    'nama':'Surabaya',
-    'imgUrl':'https://www.researchgate.net/publication/336314939/figure/fig3/AS:811418450399261@1570468642516/Sura-shark-and-baya-crocodile-as-the-icon-of-Surabaya-Source-allindonesiantourismcom_Q640.jpg'
+    'nama': 'Surabaya',
+    'imgUrl':
+        'https://www.researchgate.net/publication/336314939/figure/fig3/AS:811418450399261@1570468642516/Sura-shark-and-baya-crocodile-as-the-icon-of-Surabaya-Source-allindonesiantourismcom_Q640.jpg'
   },
   {
-    'nama':'Solo',
-    'imgUrl':'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Keraton_Surakarta.jpg/250px-Keraton_Surakarta.jpg'
+    'nama': 'Solo',
+    'imgUrl':
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Keraton_Surakarta.jpg/250px-Keraton_Surakarta.jpg'
   },
   {
-    'nama':'Yogyakarta',
-    'imgUrl':'https://media-cdn.tripadvisor.com/media/photo-s/0d/4c/5e/fa/photo0jpg.jpg'
+    'nama': 'Yogyakarta',
+    'imgUrl':
+        'https://media-cdn.tripadvisor.com/media/photo-s/0d/4c/5e/fa/photo0jpg.jpg'
   },
   {
-    'nama':'Bali',
-    'imgUrl':'https://i.insider.com/6172f7164f281c001296a571?width=1136&format=jpeg'
+    'nama': 'Bali',
+    'imgUrl':
+        'https://i.insider.com/6172f7164f281c001296a571?width=1136&format=jpeg'
   },
-  
 ];
-
-
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
   Future<List<Pariwisata>> fetchPariwisata(http.Client client) async {
-    final response = await client.get(Uri.parse('http://10.0.2.2:8000/api/pariwisata'));
+    final response =
+        await client.get(Uri.parse('http://10.0.2.2:8000/api/pariwisata'));
     List<dynamic> data = jsonDecode(response.body)['pariwisata'];
     List<Pariwisata> list = [];
     if (response.body != null) {
@@ -126,17 +129,18 @@ class Home extends StatelessWidget {
     }
     return list;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: SvgPicture.asset('assets/logo.svg',
-          height: AppBar().preferredSize.height * 0.7),
-          centerTitle: true,
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black,
-          automaticallyImplyLeading: false,
-        ),
+        title: SvgPicture.asset('assets/logo.svg',
+            height: AppBar().preferredSize.height * 0.7),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        automaticallyImplyLeading: false,
+      ),
       body: ListView(
         children: <Widget>[
           Padding(
@@ -150,7 +154,6 @@ class Home extends StatelessWidget {
               ),
             ),
           ),
-          
           Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
@@ -165,15 +168,14 @@ class Home extends StatelessWidget {
           FutureBuilder<List<Pariwisata>>(
               future: fetchPariwisata(http.Client()),
               builder: (context, snapshot) {
-                if (snapshot.hasData){
+                if (snapshot.hasData) {
                   return buildHorizontalList(context, snapshot.data!);
-                }else if (snapshot.hasError){
+                } else if (snapshot.hasError) {
                   return Text('$snapshot.error');
-                }else {
+                } else {
                   return Center(child: CircularProgressIndicator());
                 }
-              }
-            ),
+              }),
           Padding(
             padding: EdgeInsets.all(20.0),
             child: Text(
@@ -203,13 +205,13 @@ class Home extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         ClipRRect(
-                          
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                              cities[index]['imgUrl']!,
-                              height: 130.0,
-                              width: 130.0,
-                              fit: BoxFit.cover,),
+                            cities[index]['imgUrl']!,
+                            height: 130.0,
+                            width: 130.0,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                         Text(cities[index]['nama']!),
                       ],
@@ -282,7 +284,9 @@ class HorizontalPlaceItem extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Image.network(
-                  'http://10.0.2.2:8000/storage/'+ pariwisata.urlGambar,
+                  'https://blog.tubikstudio.com/wp-content/uploads/2021/06/european-places-nature-illustration-8.jpg',
+                  // dari localhost error
+                  // 'http://10.0.2.2:8000/storage/' + pariwisata.urlGambar,
                   height: 178.0,
                   width: 140.0,
                   fit: BoxFit.cover,
