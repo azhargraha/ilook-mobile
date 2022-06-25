@@ -67,6 +67,7 @@ class PackageList extends StatelessWidget {
         return GestureDetector(
           onTap: () => Navigator.pushNamed(context, '/detail-package',
             arguments: Package(
+                paketID: packages[index].paketID,
                 title: packages[index].title,
                 description: packages[index].description,
                 thumbnailUrl: packages[index].thumbnailUrl)),

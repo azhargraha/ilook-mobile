@@ -24,12 +24,12 @@ final List<Map<String, dynamic>> stringList = [
   },
 ];
 
-class Planner extends StatefulWidget {
+class DetailPlanner extends StatefulWidget {
   @override
-  State<Planner> createState() => _PlannerState();
+  State<DetailPlanner> createState() => _DetailPlannerState();
 }
 
-class _PlannerState extends State<Planner> {
+class _DetailPlannerState extends State<DetailPlanner> {
   @override
   Widget build(BuildContext context) {
     final detialList = stringList;

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ilook/page/DetailPlace.dart';
+import 'package:ilook/page/DetailPlanner.dart';
+import 'package:ilook/page/FormPlanner.dart';
 import 'package:ilook/page/Home.dart';
 import 'package:ilook/page/Explore.dart';
 import 'package:ilook/page/LoginPage.dart';
@@ -27,6 +29,8 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/detail-package': (context) => DetailPackage(),
+        '/detail-planner': (context) => DetailPlanner(),
+        '/form-planner': (context) => FormPlanner(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/detail-place': (context) => DetailPlace(),

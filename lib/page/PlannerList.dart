@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:ilook/widget/packageCard.dart';
 import 'package:ilook/models/Planner.dart';
 import 'package:ilook/models/Package.dart';
@@ -16,24 +17,38 @@ class PlannerPage extends StatefulWidget {
 
 class _PlannerPageState extends State<PlannerPage> {
   Future<List<Planner>> fetchPlanner(http.Client client) async {
-  final response = await client.get(Uri.parse('http://10.0.2.2:8000/api/planner'));
-  List<dynamic> data = jsonDecode(response.body)['planner'];
-  List<Planner> list = [];
-  if (response.body != null) {
-    list = data.map((item) => Planner.fromJson(item)).toList();
+    final response = await client.get(Uri.parse('http://10.0.2.2:8000/api/planner'));
+    List<dynamic> data = jsonDecode(response.body)['planner'];
+    List<Planner> list = [];
+    if (response.body != null) {
+      list = data.map((item) => Planner.fromJson(item)).toList();
+    }
+    print(list);
+    return list;
   }
-  print(list);
-  return list;
-}
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: Text('title'),
+          title: SvgPicture.asset('assets/logo.svg',
+          height: AppBar().preferredSize.height * 0.7),
           centerTitle: true,
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () => Navigator.pushNamed(context, '/form-planner'),
+                child: Icon(
+                  Icons.add,
+                  size: 26
+                ),
+              ),
+              )
+          ],
         ),
         body:FutureBuilder<List<Planner>>(
               future: fetchPlanner(http.Client()),
@@ -72,8 +87,9 @@ class PlannerList extends StatelessWidget {
         itemCount: planners.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () => Navigator.pushNamed(context, '/PlacePlannerList',
+            onTap: () => Navigator.pushNamed(context, '/detail-planner',
                 arguments: Package(
+                    paketID: 2,
                     title: 'Paket $index',
                     description: 'Deskripsi Paket $index',
                     thumbnailUrl:

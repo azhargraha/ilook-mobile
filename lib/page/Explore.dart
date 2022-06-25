@@ -19,6 +19,7 @@ class _ExploreState extends State<Explore> {
   Future<List<Pariwisata>> fetchPariwisata(http.Client client) async {
   final response = await client.get(Uri.parse('http://10.0.2.2:8000/api/pariwisata'));
   List<dynamic> data = jsonDecode(response.body)['pariwisata'];
+  print(data);
   List<Pariwisata> list = [];
   if (response.body != null) {
     list = data.map((item) => Pariwisata.fromJson(item)).toList();

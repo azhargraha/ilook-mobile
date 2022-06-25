@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ilook/models/Package.dart';
+import 'package:ilook/models/Pariwisata.dart';
 import 'package:ilook/page/Home.dart';
 import 'package:ilook/widget/RatingPopUp.dart';
+import 'package:http/http.dart' as http;
 
 class DetailPackage extends StatelessWidget {
   const DetailPackage({Key? key}) : super(key: key);
@@ -12,6 +15,17 @@ class DetailPackage extends StatelessWidget {
   Widget build(BuildContext context) {
     final place = ModalRoute.of(context)!.settings.arguments as Package;
     Size screen = MediaQuery.of(context).size;
+    Future<List<Pariwisata>> fetchPariwisataList(http.Client client) async {
+      final response = await client.get(Uri.parse('http://10.0.2.2:8000/api/paket/'+'${place.paketID}'));
+      List<dynamic> data = jsonDecode(response.body)['pariwisataList'];
+      print(data);
+      List<Pariwisata> list = [];
+      if (response.body != null) {
+        list = data.map((item) => Pariwisata.fromJson(item)).toList();
+      }
+      print(list);
+      return list;
+  }
 
     return SafeArea(
       child: Scaffold(
@@ -74,12 +88,12 @@ class DetailPackage extends StatelessWidget {
                           padding: EdgeInsets.zero,
                           controller: scrollController,
                           children: [
-                            LocationBar(kota: 'Bandung'),
+                            LocationBar(pariwisataList: fetchPariwisataList(http.Client()),kota: 'Bandung'),
                             DetailLocation(
                               title: place.title,
                               description: place.description,
                               thumbnailUrl: place.thumbnailUrl,
-                            )
+                            ),
                           ]),
                     );
                   }),
@@ -97,8 +111,9 @@ class DetailPackage extends StatelessWidget {
 }
 
 class LocationBar extends StatelessWidget {
+  final Future<List<Pariwisata>> pariwisataList;
   final String kota;
-  const LocationBar({Key? key, required this.kota}) : super(key: key);
+  const LocationBar({Key? key, required this.pariwisataList,required this.kota}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -115,9 +130,16 @@ class LocationBar extends StatelessWidget {
                     fontSize: 14,
                     color: Colors.white)),
           ),
-          Text(
-            'List Pariwisata',
-            style: TextStyle(color: Colors.white),
+          GestureDetector(
+            child: Text('List Pariwisata', style: TextStyle(color: Colors.white)),
+            onTap: () => showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Pariwisata List'),
+                  content: setupAlertDialoadContainer(pariwisataList, context),
+                );
+              }),
           ),
         ],
       ),
@@ -260,5 +282,83 @@ class BottomBar extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+
+Widget setupAlertDialoadContainer(Future<List<Pariwisata>> pariwisataList, context) {
+
+  return Container(
+    height: 500.0, // Change as per your requirement
+    width: 300.0, // Change as per your requirement
+    child: FutureBuilder<List<Pariwisata>>(
+      future: pariwisataList,
+      builder: (context, snapshot) {
+        if (snapshot.hasData){
+          return PariwisataList(pariwisata: snapshot.data!);
+        }else if (snapshot.hasError){
+          return Text('$snapshot.error');
+        }else {
+          return Center(child: CircularProgressIndicator());
+        }
+      } 
+    )
+  );
+}
+
+class PariwisataList extends StatelessWidget {
+  final List<Pariwisata> pariwisata;
+  const PariwisataList({ Key? key, required this.pariwisata }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: ClampingScrollPhysics(),
+      itemCount: pariwisata.length,
+      itemBuilder: (context, index) {
+        return Container(
+          margin: EdgeInsets.symmetric(vertical: 25),
+          child: Column(
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  'http://10.0.2.2:8000/storage/'+ pariwisata[index].urlGambar,
+                  height: 178.0,
+                  width: 140.0,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              SizedBox(height: 7.0),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  pariwisata[index].nama,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15.0,
+                  ),
+                  maxLines: 1,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              SizedBox(height: 3.0),
+              Container(
+                alignment: Alignment.center,
+                child: Text(
+                  pariwisata[index].lokasi,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13.0,
+                    color: Colors.blueGrey[300],
+                  ),
+                  maxLines: 1,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ]),
+        );
+      });
   }
 }
