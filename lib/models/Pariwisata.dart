@@ -17,16 +17,15 @@ class Pariwisata {
       // required this.rating,
       required this.kategoriID,
       required this.urlGambar});
-  factory Pariwisata.fromJson(Map <String, dynamic> json){
+  factory Pariwisata.fromJson(Map<String, dynamic> json) {
     return Pariwisata(
-      wisataID: json['wisataID'],
-      nama: json['nama'],
-      deskripsi: json['deskripsi'],
-      lokasi: json['lokasi'],
-      harga: json['harga'],
-      // rating: json['rating'],
-      kategoriID: json['kategoriID'],
-      urlGambar: json['urlGambar']
-    );
+        wisataID: json['wisataID'],
+        nama: json['nama'],
+        deskripsi: json['deskripsi'],
+        lokasi: json['lokasi'],
+        harga: json['harga'],
+        // rating: json['rating'],
+        kategoriID: json['kategoriID'],
+        urlGambar: json['urlGambar']);
   }
 }
